@@ -10,7 +10,7 @@ public class VerdureiraAplication {
 
 	public static void main(String[] args) {
 		try (Scanner input = new Scanner(System.in)) {
-			MenuManager menuManager = new MenuManager(new MenuProvider(new MenuItemGeral(input)), true);
+			MenuManager menuManager = new MenuManager(new MenuProvider(new MenuItemGeral(input)));
 			menuManager.chamarMenu();
 		}
 

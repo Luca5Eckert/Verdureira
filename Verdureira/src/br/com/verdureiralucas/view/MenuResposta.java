@@ -18,7 +18,6 @@ public class MenuResposta implements Menu {
 
 	@Override
 	public Object mostrarMenu() {
-
 		System.out.println("---------------------------------------------------");
 		System.out.println("                      RESULTADO                    ");
 		System.out.println("---------------------------------------------------");

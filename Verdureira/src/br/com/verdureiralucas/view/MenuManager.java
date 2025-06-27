@@ -3,22 +3,20 @@ package br.com.verdureiralucas.view;
 public class MenuManager {
 
 	private final MenuProvider menuProvider;
-	private boolean aplicacaoFuncionando;
 
-	public MenuManager(MenuProvider menuProvider, boolean aplicacaoFuncionando) {
+	public MenuManager(MenuProvider menuProvider) {
 		this.menuProvider = menuProvider;
-		this.aplicacaoFuncionando = aplicacaoFuncionando;
 	}
 
 	public void chamarMenu() {
-		while (aplicacaoFuncionando) {
+		while (verificarContinuidade()) {
 			executarMenu();
 			verificarContinuidade();
 		}
 	}
 
-	private void verificarContinuidade() {
-		aplicacaoFuncionando = menuProvider.verificarContinuidade();
+	private boolean verificarContinuidade() {
+		return menuProvider.verificarContinuidade();
 	}
 
 	public void executarMenu() {
