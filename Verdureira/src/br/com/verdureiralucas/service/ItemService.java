@@ -5,6 +5,7 @@ import java.util.stream.Collectors;
 
 import br.com.verdureiralucas.dto.ItemDto;
 import br.com.verdureiralucas.dto.ItemEditDto;
+import br.com.verdureiralucas.dto.ItemMudancaQuantidadeRequest;
 import br.com.verdureiralucas.exception.ItemNaoExisteEstoqueException;
 import br.com.verdureiralucas.exception.TipoItemNaoExisteEstoqueException;
 import br.com.verdureiralucas.model.EstoqueItem;
@@ -97,4 +98,13 @@ public class ItemService {
 				itemDto.tipoItem());
 	}
 
+    public void alterarQuantidadeItem(ItemMudancaQuantidadeRequest itemMudarQuantidade) {
+    	Item item = transformarDtoEmModel(itemMudarQuantidade.itemDto());
+		int indexItem = estoque.pegarNumeroId(item);
+
+		ItemDto itemDto = itemMudarQuantidade.alterarQuantidade();
+		Item itemNovo = new Item(itemDto);
+
+		estoque.alterarItem(indexItem, itemNovo);
+	}
 }

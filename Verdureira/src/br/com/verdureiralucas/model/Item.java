@@ -1,5 +1,6 @@
 package br.com.verdureiralucas.model;
 
+import br.com.verdureiralucas.dto.ItemDto;
 import br.com.verdureiralucas.exception.InsercaoInvalidaException;
 import br.com.verdureiralucas.infraestrutura.PatternsUtils;
 
@@ -10,12 +11,22 @@ public class Item {
 	private String descricao;
 	private int quantidade;
 
-	private static final TipoItem tipoItem = TipoItem.FRUTA;
+	private TipoItem tipoItem;
 
 	public Item(String nome, double preco, String descricao, int quantidade, TipoItem tipoItem) {
 		this.nome = nome;
 		this.preco = preco;
 		this.descricao = descricao;
+		this.quantidade = quantidade;
+		this.tipoItem = tipoItem;
+	}
+
+	public Item(ItemDto itemDto) {
+		this.nome = itemDto.nome();
+		this.preco = itemDto.preco();
+		this.descricao = itemDto.descricao();
+		this.quantidade = itemDto.quantidade();
+		this.tipoItem = itemDto.tipoItem();
 	}
 
 	public void aumentarQuantidade(int aumentarEm) {

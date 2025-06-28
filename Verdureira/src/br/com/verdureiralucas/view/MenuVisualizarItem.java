@@ -1,9 +1,11 @@
 package br.com.verdureiralucas.view;
 
+import java.sql.SQLOutput;
 import java.util.Scanner;
 
 import br.com.verdureiralucas.controller.ItemController;
 import br.com.verdureiralucas.dto.ItemDto;
+import br.com.verdureiralucas.dto.ItemMudancaQuantidadeRequest;
 import br.com.verdureiralucas.infraestrutura.PatternsUtils;
 import br.com.verdureiralucas.model.TipoItem;
 
@@ -27,10 +29,10 @@ public class MenuVisualizarItem implements Menu {
 		System.out.println("---------------------------------------------------");
 		System.out.println(" Nome: " + itemDto.nome());
 		System.out.println(" Descrição: " + PatternsUtils.enquadrarTextoEmTamanho(itemDto.descricao(), 40));
-		System.out.println("/n Preço: " + itemDto.preco());
+		System.out.println("\n Preço: " + itemDto.preco());
 		System.out.println(" Quantidade: " + itemDto.quantidade());
 
-		System.out.println("/n 1- Aumentar Estoque    2- Diminuir Estoque");
+		System.out.println("\n 1- Aumentar Estoque    2- Diminuir Estoque");
 		System.out.println(" 3- Editar " + tipoItem.getEmString());
 		System.out.println(" 4- Apagar " + tipoItem.getEmString());
 		System.out.println("---------------------------------------------------");
@@ -51,12 +53,27 @@ public class MenuVisualizarItem implements Menu {
 	}
 
 	private Menu diminuirItemEstoque() {
-		return null;
+		System.out.println("---------------------------------------------------");
+		System.out.println("               DIMINUIR ITEM                       ");
+		System.out.println("---------------------------------------------------");
+		System.out.println(" S - Sair ");
+		System.out.println(" Você deseja diminuir para quanto: " );
+		int subtracao = input.nextInt();
+		ItemMudancaQuantidadeRequest itemMudancaQuantidadeRequest = new ItemMudancaQuantidadeRequest(itemDto, 0-subtracao);
+		itemController.alterarEstoque(itemMudancaQuantidadeRequest);
+		return this;
 	}
 
 	private Menu aumentarItemEstoque() {
-		// TODO Auto-generated method stub
-		return null;
+		System.out.println("---------------------------------------------------");
+		System.out.println("              AUMENTAR QUANTIDADE                  ");
+		System.out.println("---------------------------------------------------");
+		System.out.println(" S - Sair ");
+		System.out.println(" Você deseja aumentar para quanto: " );
+		int aumenta = input.nextInt();
+		ItemMudancaQuantidadeRequest itemMudancaQuantidadeRequest = new ItemMudancaQuantidadeRequest(itemDto, aumenta);
+		itemController.alterarEstoque(itemMudancaQuantidadeRequest);
+		return this;
 	}
 
 	private Menu apagarItemEstoque() {
@@ -86,7 +103,6 @@ public class MenuVisualizarItem implements Menu {
 	@Override
 	public void limparScanner() {
 		input.nextLine();
-
 	}
 
 }
