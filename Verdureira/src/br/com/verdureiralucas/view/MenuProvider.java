@@ -13,9 +13,14 @@ public class MenuProvider {
 			Object opcaoSelecionada = exibirMenu();
 			executarMenu(opcaoSelecionada);
 		} catch (Exception e) {
+			limparErroScanner();
 			System.err.println(" Entrada invalida");
 		}
 
+	}
+
+	private void limparErroScanner() {
+		menu.limparScanner();
 	}
 
 	private Object exibirMenu() {

@@ -3,6 +3,7 @@ package br.com.verdureiralucas.controller;
 import java.util.List;
 
 import br.com.verdureiralucas.dto.ItemDto;
+import br.com.verdureiralucas.dto.ItemEditDto;
 import br.com.verdureiralucas.model.TipoItem;
 import br.com.verdureiralucas.service.ItemService;
 
@@ -20,6 +21,14 @@ public class ItemController {
 
 	public void removerItem(int index, TipoItem tipoItem) {
 		itemService.removerItem(index, tipoItem);
+	}
+
+	public void removerItem(ItemDto itemDto) {
+		itemService.removerItem(itemDto, itemDto.tipoItem());
+	}
+
+	public void alterarItem(ItemEditDto itemEditDto, ItemDto itemDto) {
+		itemService.alterarItem(itemEditDto, itemDto);
 	}
 
 	public ItemDto pegarItem(int index, TipoItem tipoItem) {

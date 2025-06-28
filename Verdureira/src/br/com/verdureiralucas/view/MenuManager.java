@@ -11,7 +11,6 @@ public class MenuManager {
 	public void chamarMenu() {
 		while (verificarContinuidade()) {
 			executarMenu();
-			verificarContinuidade();
 		}
 	}
 
@@ -19,7 +18,7 @@ public class MenuManager {
 		return menuProvider.verificarContinuidade();
 	}
 
-	public void executarMenu() {
+	private void executarMenu() {
 		menuProvider.chamarMenu();
 	}
 }

@@ -1,9 +1,17 @@
 package br.com.verdureiralucas.model;
 
-import java.util.List;
-
 public enum TipoItem {
-	FRUTA;
+	FRUTA("fruta");
+
+	private final String emString;
+
+	public String getEmString() {
+		return emString;
+	}
+
+	TipoItem(String emString) {
+		this.emString = emString;
+	}
 
 	public static void pegarValoresTipos() {
 		for (int item = 0; values().length > item; item++) {

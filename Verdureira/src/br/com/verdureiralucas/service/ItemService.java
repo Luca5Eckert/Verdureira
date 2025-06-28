@@ -1,10 +1,11 @@
 package br.com.verdureiralucas.service;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import br.com.verdureiralucas.dto.ItemDto;
+import br.com.verdureiralucas.dto.ItemEditDto;
+import br.com.verdureiralucas.exception.ItemNaoExisteEstoqueException;
 import br.com.verdureiralucas.exception.TipoItemNaoExisteEstoqueException;
 import br.com.verdureiralucas.model.EstoqueItem;
 import br.com.verdureiralucas.model.Item;
@@ -37,8 +38,8 @@ public class ItemService {
 	public ItemDto pegarItem(int index, TipoItem tipoItem) {
 		verificarSeTipoItemExisteEstoque(tipoItem);
 
-		Item item = estoque.pegarItem(tipoItem, index).orElseThrow(
-				() -> new TipoItemNaoExisteEstoqueException("Tipo do item não possui no estoque", tipoItem));
+		Item item = estoque.pegarItem(tipoItem, index)
+				.orElseThrow(() -> new ItemNaoExisteEstoqueException("Tipo do item não possui no estoque"));
 
 		return new ItemDto(item);
 	}
@@ -73,6 +74,27 @@ public class ItemService {
 
 	private List<ItemDto> transformarListaModelEmDto(List<Item> listaItem) {
 		return listaItem.stream().map(this::transformarModelEmDto).collect(Collectors.toList());
+	}
+
+	public void removerItem(ItemDto itemDto, TipoItem tipoItem) {
+		Item item = transformarDtoEmModel(itemDto);
+		estoque.removerItem(tipoItem, item);
+
+	}
+
+	public void alterarItem(ItemEditDto itemEditDto, ItemDto itemDto) {
+		Item itemAntigo = transformarDtoEmModel(itemDto);
+
+		int indexItem = estoque.pegarNumeroId(itemAntigo);
+
+		Item itemNovo = criarItemAlterado(itemDto, itemEditDto);
+
+		estoque.alterarItem(indexItem, itemNovo);
+	}
+
+	private Item criarItemAlterado(ItemDto itemDto, ItemEditDto itemEditDto) {
+		return new Item(itemEditDto.nome(), itemEditDto.preco(), itemEditDto.descricao(), itemDto.quantidade(),
+				itemDto.tipoItem());
 	}
 
 }

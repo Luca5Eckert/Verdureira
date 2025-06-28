@@ -25,7 +25,7 @@ public class MenuAdicionarItem implements Menu {
 		TipoItem.pegarValoresTipos();
 		TipoItem tipoMenu = TipoItem.values()[input.nextInt()];
 
-		input.nextLine();
+		limparScanner();
 		System.out.println(" Nome do Item: ");
 		String nome = input.nextLine();
 
@@ -37,14 +37,14 @@ public class MenuAdicionarItem implements Menu {
 
 		System.out.println(" Quantidade do Item: ");
 		int qtdItem = input.nextInt();
-
+		
 		System.out.println("---------------------------------------------------");
 		return new ItemDto(nome, preco, descricao, qtdItem, tipoMenu);
 	}
 
 	@Override
 	public Menu executarAcao(Object opcaoSelecionada) {
-		input.nextLine();
+		limparScanner();
 
 		ItemDto itemDto = (ItemDto) opcaoSelecionada;
 
@@ -52,4 +52,11 @@ public class MenuAdicionarItem implements Menu {
 
 		return new MenuResposta(new MenuItemGeral(input), "Adicionado Com sucesso", input);
 	}
+
+	@Override
+	public void limparScanner() {
+		input.nextLine();
+
+	}
+
 }

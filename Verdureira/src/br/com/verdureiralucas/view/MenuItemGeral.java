@@ -20,8 +20,7 @@ public class MenuItemGeral implements Menu {
 		System.out.println("                     MENU ITEM                     ");
 		System.out.println("---------------------------------------------------");
 		System.out.println(" 1- Adicionar Item ");
-		System.out.println(" 2- Remover Item ");
-		System.out.println(" 3- Exibir Item ");
+		System.out.println(" 2- Exibir Item ");
 		System.out.println("---------------------------------------------------");
 		return input.nextLine().toUpperCase().trim();
 	}
@@ -32,8 +31,13 @@ public class MenuItemGeral implements Menu {
 
 		return switch (opcaoString) {
 		case "1" -> new MenuAdicionarItem(new ItemController(new ItemService(new EstoqueItem())), input);
+		case "2" -> new MenuListarItens(input, new ItemController(new ItemService(new EstoqueItem())));
 		default -> this;
 		};
 	}
 
+	@Override
+	public void limparScanner() {
+		input.nextLine();
+	}
 }
