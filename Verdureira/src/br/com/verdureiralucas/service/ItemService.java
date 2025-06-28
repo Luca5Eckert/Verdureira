@@ -98,13 +98,16 @@ public class ItemService {
 				itemDto.tipoItem());
 	}
 
-    public void alterarQuantidadeItem(ItemMudancaQuantidadeRequest itemMudarQuantidade) {
+    public ItemDto alterarQuantidadeItem(ItemMudancaQuantidadeRequest itemMudarQuantidade) {
     	Item item = transformarDtoEmModel(itemMudarQuantidade.itemDto());
 		int indexItem = estoque.pegarNumeroId(item);
 
 		ItemDto itemDto = itemMudarQuantidade.alterarQuantidade();
+
 		Item itemNovo = new Item(itemDto);
 
 		estoque.alterarItem(indexItem, itemNovo);
+
+		return itemDto;
 	}
 }

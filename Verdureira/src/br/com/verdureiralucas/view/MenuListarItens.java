@@ -42,7 +42,7 @@ public class MenuListarItens implements Menu {
 		if (listaItens.isPresent()) {
 			exibirItens(listaItens.get());
 		} else {
-			System.out.println(" Estoque vazio");
+			System.out.println("Estoque vazio para o tipo " + tipoItem.getEmString() + ".");
 		}
 
 		System.out.println("---------------------------------------------------");
@@ -75,13 +75,20 @@ public class MenuListarItens implements Menu {
 		System.out.println("---------------------------------------------------");
 		System.out.println(" Qual tipo você quer listar: ");
 		TipoItem.pegarValoresTipos();
-		int escolha = input.nextInt();
-
-		if (escolha >= TipoItem.values().length || escolha < 0) {
-			throw new RuntimeException();
+		int escolha = -1;
+		try {
+			escolha = input.nextInt();
+		} catch (java.util.InputMismatchException e) {
+			System.out.println("Entrada inválida. Por favor, digite um número.");
+			throw new InsercaoInvalidaException("Entrada não numérica para escolha de tipo", "Não é um número");
+		} finally {
+			input.nextLine();
 		}
 
-		input.nextLine();
+		if (escolha >= TipoItem.values().length || escolha < 0) {
+			throw new IllegalArgumentException("Opção de tipo de item inválida. Por favor, escolha um número dentro das opções disponíveis.");
+		}
+
 		return TipoItem.values()[escolha];
 	}
 
@@ -90,8 +97,8 @@ public class MenuListarItens implements Menu {
 		String textoEnviado = (String) opcaoSelecionada;
 
 		return switch (textoEnviado) {
-		case "S" -> new MenuItemGeral(input);
-		default -> verificarinput(textoEnviado);
+			case "S" -> new MenuItemGeral(input);
+			default -> verificarinput(textoEnviado);
 		};
 	}
 
@@ -101,18 +108,19 @@ public class MenuListarItens implements Menu {
 		if (eNumero) {
 			return criarMenuDoItemSelecionado(Integer.parseInt(inserido));
 		}
-		throw new InsercaoInvalidaException("Entrada invalida", inserido);
+
+		throw new InsercaoInvalidaException("Entrada inválida. Digite 'S' para sair ou um número para selecionar um item.", inserido);
 	}
 
 	private Menu criarMenuDoItemSelecionado(int indexItemSelecionado) {
 		Optional<ItemDto> itemdto = pegarItemSelecionado(indexItemSelecionado);
 
 		if (itemdto.isEmpty()) {
+			System.out.println("Item selecionado não encontrado. Por favor, verifique o índice e tente novamente.");
 			return this;
 		}
 
 		return new MenuVisualizarItem(input, itemController, itemdto.get());
-
 	}
 
 	private Optional<ItemDto> pegarItemSelecionado(int indexItemSelecionado) {
@@ -121,7 +129,7 @@ public class MenuListarItens implements Menu {
 		try {
 			itemDto = itemController.pegarItem(indexItemSelecionado, tipoSelecionado);
 		} catch (TipoItemNaoExisteEstoqueException | ItemNaoExisteEstoqueException tineee) {
-			System.out.println(" " + tineee.getMessage());
+			System.out.println("Erro ao buscar item: " + tineee.getMessage());
 		}
 		return Optional.ofNullable(itemDto);
 	}
@@ -130,5 +138,4 @@ public class MenuListarItens implements Menu {
 	public void limparScanner() {
 		input.nextLine();
 	}
-
 }

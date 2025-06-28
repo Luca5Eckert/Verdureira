@@ -13,7 +13,7 @@ public class MenuVisualizarItem implements Menu {
 
 	private final Scanner input;
 	private final ItemController itemController;
-	private final ItemDto itemDto;
+	private ItemDto itemDto;
 
 	public MenuVisualizarItem(Scanner input, ItemController itemController, ItemDto itemDto) {
 		this.input = input;
@@ -33,8 +33,8 @@ public class MenuVisualizarItem implements Menu {
 		System.out.println(" Quantidade: " + itemDto.quantidade());
 
 		System.out.println("\n 1- Aumentar Estoque    2- Diminuir Estoque");
-		System.out.println(" 3- Editar " + tipoItem.getEmString());
-		System.out.println(" 4- Apagar " + tipoItem.getEmString());
+		System.out.println(" 3- Editar " + tipoItem.getEmString() + "       4- Apagar " + tipoItem.getEmString());
+		System.out.println(" 5- Sair");
 		System.out.println("---------------------------------------------------");
 		return input.nextLine();
 	}
@@ -48,6 +48,7 @@ public class MenuVisualizarItem implements Menu {
 		case "2" -> diminuirItemEstoque();
 		case "3" -> new MenuEditarItem(input, itemController, itemDto);
 		case "4" -> apagarItemEstoque();
+		case "5" -> new MenuItemGeral(input);
 		default -> this;
 		};
 	}
@@ -59,8 +60,11 @@ public class MenuVisualizarItem implements Menu {
 		System.out.println(" S - Sair ");
 		System.out.println(" Você deseja diminuir para quanto: " );
 		int subtracao = input.nextInt();
+		input.nextLine();
+
 		ItemMudancaQuantidadeRequest itemMudancaQuantidadeRequest = new ItemMudancaQuantidadeRequest(itemDto, 0-subtracao);
-		itemController.alterarEstoque(itemMudancaQuantidadeRequest);
+		alterarQuantidadeItem(itemMudancaQuantidadeRequest);
+
 		return this;
 	}
 
@@ -71,10 +75,23 @@ public class MenuVisualizarItem implements Menu {
 		System.out.println(" S - Sair ");
 		System.out.println(" Você deseja aumentar para quanto: " );
 		int aumenta = input.nextInt();
+		input.nextLine();
+
 		ItemMudancaQuantidadeRequest itemMudancaQuantidadeRequest = new ItemMudancaQuantidadeRequest(itemDto, aumenta);
-		itemController.alterarEstoque(itemMudancaQuantidadeRequest);
+		alterarQuantidadeItem(itemMudancaQuantidadeRequest);
+
 		return this;
 	}
+
+	private void alterarQuantidadeItem(ItemMudancaQuantidadeRequest itemMudancaQuantidadeRequest){
+		ItemDto item = itemController.alterarEstoque(itemMudancaQuantidadeRequest);
+		atualizarItemDto(item);
+	}
+
+	private void atualizarItemDto(ItemDto itemDto){
+		this.itemDto = itemDto;
+	}
+
 
 	private Menu apagarItemEstoque() {
 		System.out.println("---------------------------------------------------");

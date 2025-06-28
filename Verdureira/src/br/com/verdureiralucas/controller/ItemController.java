@@ -40,7 +40,7 @@ public class ItemController {
         return itemService.pegarTodosItens(tipoItem);
     }
 
-    public void alterarEstoque(ItemMudancaQuantidadeRequest itemMudancaQuantidadeRequest) {
-        itemService.alterarQuantidadeItem(itemMudancaQuantidadeRequest);
+    public ItemDto alterarEstoque(ItemMudancaQuantidadeRequest itemMudancaQuantidadeRequest) {
+        return itemService.alterarQuantidadeItem(itemMudancaQuantidadeRequest);
     }
 }
