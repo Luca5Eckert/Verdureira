@@ -8,5 +8,7 @@ public record ItemDto(String nome, double preco, String descricao, int quantidad
 	public ItemDto(Item item) {
 		this(item.getNome(), item.getPreco(), item.getDescricao(), item.getQuantidade(), item.getTipoItem());
 	}
+	
+	
 
 }

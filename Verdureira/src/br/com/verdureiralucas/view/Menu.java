@@ -6,4 +6,6 @@ public interface Menu {
 
 	Menu executarAcao(Object opcaoSelecionada);
 
+	void limparScanner();
+
 }

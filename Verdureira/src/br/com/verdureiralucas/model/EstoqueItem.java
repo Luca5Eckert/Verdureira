@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import br.com.verdureiralucas.dto.ItemEditDto;
 import br.com.verdureiralucas.exception.ItemNaoCorrespondeComTipoException;
 
 public class EstoqueItem {
@@ -44,6 +45,24 @@ public class EstoqueItem {
 
 	private boolean validarItemEIgualTipo(TipoItem tipoItem, Item item) {
 		return item.getTipoItem().equals(tipoItem);
+	}
+
+	public void alterarItem(int index, Item itemNovo) {
+		itens.get(itemNovo.getTipoItem()).add(index, itemNovo);
+	}
+
+	public int pegarNumeroId(Item item) {
+		Item itemComparado;
+		var listaPercorrer = this.itens.get(item.getTipoItem());
+
+		for (int id = 0; id < listaPercorrer.size(); id++) {
+			itemComparado = listaPercorrer.get(id);
+			if (item.equals(itemComparado)) {
+				return id;
+			}
+		}
+
+		return -1;
 	}
 
 }

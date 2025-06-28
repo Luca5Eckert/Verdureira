@@ -33,4 +33,11 @@ public class MenuResposta implements Menu {
 		return menu;
 	}
 
+	@Override
+	public void limparScanner() {
+		if (input.hasNext()) {
+			input.nextLine();
+		}
+	}
+
 }
