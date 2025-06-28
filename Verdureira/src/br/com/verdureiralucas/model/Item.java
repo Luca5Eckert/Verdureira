@@ -72,4 +72,24 @@ public class Item {
 		return tipoItem;
 	}
 
+
+	@Override
+	public boolean equals(Object object) {
+		if (!(object instanceof Item)) {
+			return false;
+		}
+
+		Item item = (Item) object;
+
+		if (item == this) {
+			return true;
+		}
+
+		if (this.nome.equals(item.getNome()) && this.preco == item.getPreco() && this.descricao.equals(item.getDescricao()) && this.quantidade == item.getQuantidade() && this.tipoItem.equals(item.tipoItem)) {
+			return true;
+		}
+
+		return false;
+	}
+
 }
