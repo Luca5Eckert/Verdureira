@@ -10,7 +10,14 @@ import br.com.verdureiralucas.dto.ItemEditDto;
 import br.com.verdureiralucas.exception.ItemNaoCorrespondeComTipoException;
 
 public class EstoqueItem {
-	private static Map<TipoItem, List<Item>> itens = new HashMap();
+	private static final Map<TipoItem, List<Item>> itens;
+
+	static {
+		itens = new HashMap<>();
+		for (TipoItem tipo : TipoItem.values()) {
+			itens.put(tipo, new ArrayList<>());
+		}
+	}
 
 	public boolean adicionarItem(TipoItem tipoItem, Item item) {
 		if (!validarItemEIgualTipo(tipoItem, item)) {
@@ -20,7 +27,11 @@ public class EstoqueItem {
 	}
 
 	public Optional<Item> pegarItem(TipoItem tipoItem, int index) {
-		return Optional.ofNullable(itens.get(tipoItem).get(index));
+		List<Item> lista = itens.get(tipoItem);
+		if (lista != null && index >= 0 && index < lista.size()) {
+			return Optional.of(lista.get(index));
+		}
+		return Optional.empty();
 	}
 
 	public Optional<List<Item>> pegarTipoItem(TipoItem tipoItem) {
@@ -32,11 +43,15 @@ public class EstoqueItem {
 	}
 
 	public Item removerItem(TipoItem tipoItem, int indexItem) {
-		return itens.get(tipoItem).remove(indexItem);
+		List<Item> lista = itens.get(tipoItem);
+		if (lista != null && indexItem >= 0 && indexItem < lista.size()) {
+			return lista.remove(indexItem);
+		}
+		return null;
 	}
 
 	public void adicionarTipoItem(TipoItem tipoItem) {
-		itens.put(tipoItem, new ArrayList<Item>());
+		itens.putIfAbsent(tipoItem, new ArrayList<>());
 	}
 
 	public void removerTipoItem(TipoItem tipoItem) {
@@ -48,21 +63,23 @@ public class EstoqueItem {
 	}
 
 	public void alterarItem(int index, Item itemNovo) {
-		itens.get(itemNovo.getTipoItem()).add(index, itemNovo);
+		List<Item> lista = itens.get(itemNovo.getTipoItem());
+		if (lista != null && index >= 0 && index < lista.size()) {
+			lista.set(index, itemNovo);
+		}
 	}
 
 	public int pegarNumeroId(Item item) {
-		Item itemComparado;
-		var listaPercorrer = this.itens.get(item.getTipoItem());
-
+		List<Item> listaPercorrer = itens.get(item.getTipoItem());
+		if (listaPercorrer == null) {
+			return -1;
+		}
 		for (int id = 0; id < listaPercorrer.size(); id++) {
-			itemComparado = listaPercorrer.get(id);
+			Item itemComparado = listaPercorrer.get(id);
 			if (item.equals(itemComparado)) {
 				return id;
 			}
 		}
-
 		return -1;
 	}
-
 }

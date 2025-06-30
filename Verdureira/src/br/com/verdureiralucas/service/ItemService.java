@@ -83,7 +83,7 @@ public class ItemService {
 
 	}
 
-	public void alterarItem(ItemEditDto itemEditDto, ItemDto itemDto) {
+	public ItemDto alterarItem(ItemEditDto itemEditDto, ItemDto itemDto) {
 		Item itemAntigo = transformarDtoEmModel(itemDto);
 
 		int indexItem = estoque.pegarNumeroId(itemAntigo);
@@ -91,6 +91,8 @@ public class ItemService {
 		Item itemNovo = criarItemAlterado(itemDto, itemEditDto);
 
 		estoque.alterarItem(indexItem, itemNovo);
+
+		return transformarModelEmDto(itemNovo);
 	}
 
 	private Item criarItemAlterado(ItemDto itemDto, ItemEditDto itemEditDto) {

@@ -28,8 +28,8 @@ public class ItemController {
         itemService.removerItem(itemDto, itemDto.tipoItem());
     }
 
-    public void alterarItem(ItemEditDto itemEditDto, ItemDto itemDto) {
-        itemService.alterarItem(itemEditDto, itemDto);
+    public ItemDto alterarItem(ItemEditDto itemEditDto, ItemDto itemDto) {
+        return itemService.alterarItem(itemEditDto, itemDto);
     }
 
     public ItemDto pegarItem(int index, TipoItem tipoItem) {
