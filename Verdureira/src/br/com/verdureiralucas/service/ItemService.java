@@ -10,6 +10,7 @@ import br.com.verdureiralucas.exception.ItemNaoExisteEstoqueException;
 import br.com.verdureiralucas.exception.TipoItemNaoExisteEstoqueException;
 import br.com.verdureiralucas.model.EstoqueItem;
 import br.com.verdureiralucas.model.Item;
+import br.com.verdureiralucas.model.ItemFactory;
 import br.com.verdureiralucas.model.TipoItem;
 
 public class ItemService {
@@ -66,7 +67,7 @@ public class ItemService {
 	}
 
 	private Item transformarDtoEmModel(ItemDto itemDto) {
-		return new Item(itemDto.nome(), itemDto.preco(), itemDto.descricao(), itemDto.quantidade(), itemDto.tipoItem());
+		return ItemFactory.instanceTo(itemDto.nome(), itemDto.preco(), itemDto.descricao(), itemDto.quantidade(), itemDto.tipoItem());
 	}
 
 	private ItemDto transformarModelEmDto(Item item) {
@@ -96,8 +97,7 @@ public class ItemService {
 	}
 
 	private Item criarItemAlterado(ItemDto itemDto, ItemEditDto itemEditDto) {
-		return new Item(itemEditDto.nome(), itemEditDto.preco(), itemEditDto.descricao(), itemDto.quantidade(),
-				itemDto.tipoItem());
+		return ItemFactory.instanceTo(itemEditDto.nome(), itemEditDto.preco(), itemEditDto.descricao(), itemDto.quantidade(), itemDto.tipoItem());
 	}
 
     public ItemDto alterarQuantidadeItem(ItemMudancaQuantidadeRequest itemMudarQuantidade) {
@@ -106,7 +106,7 @@ public class ItemService {
 
 		ItemDto itemDto = itemMudarQuantidade.alterarQuantidade();
 
-		Item itemNovo = new Item(itemDto);
+		Item itemNovo = ItemFactory.instanceTo(itemDto.nome(), itemDto.preco(), itemDto.descricao(), itemDto.quantidade(), itemDto.tipoItem());
 
 		estoque.alterarItem(indexItem, itemNovo);
 

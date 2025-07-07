@@ -21,7 +21,7 @@ public class EstoqueItem {
 
 	public boolean adicionarItem(TipoItem tipoItem, Item item) {
 		if (!validarItemEIgualTipo(tipoItem, item)) {
-			throw new ItemNaoCorrespondeComTipoException("Item não corresponde com tipo", item.getTipoItem(), tipoItem);
+			throw new ItemNaoCorrespondeComTipoException("Item não corresponde com tipo", item.pegarTipo(), tipoItem);
 		}
 		return itens.get(tipoItem).add(item);
 	}
@@ -59,18 +59,18 @@ public class EstoqueItem {
 	}
 
 	private boolean validarItemEIgualTipo(TipoItem tipoItem, Item item) {
-		return item.getTipoItem().equals(tipoItem);
+		return item.pegarTipo().equals(tipoItem);
 	}
 
 	public void alterarItem(int index, Item itemNovo) {
-		List<Item> lista = itens.get(itemNovo.getTipoItem());
+		List<Item> lista = itens.get(itemNovo.pegarTipo());
 		if (lista != null && index >= 0 && index < lista.size()) {
 			lista.set(index, itemNovo);
 		}
 	}
 
 	public int pegarNumeroId(Item item) {
-		List<Item> listaPercorrer = itens.get(item.getTipoItem());
+		List<Item> listaPercorrer = itens.get(item.pegarTipo());
 		if (listaPercorrer == null) {
 			return -1;
 		}
