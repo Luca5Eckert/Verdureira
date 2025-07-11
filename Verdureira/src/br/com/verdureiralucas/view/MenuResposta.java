@@ -3,7 +3,7 @@ package br.com.verdureiralucas.view;
 import java.awt.im.InputContext;
 import java.util.Scanner;
 
-public class MenuResposta implements Menu {
+public class MenuResposta implements Menu<String> {
 
 	private Scanner input;
 
@@ -17,7 +17,7 @@ public class MenuResposta implements Menu {
 	}
 
 	@Override
-	public Object mostrarMenu() {
+	public String mostrarMenu() {
 		System.out.println("---------------------------------------------------");
 		System.out.println("                      RESULTADO                    ");
 		System.out.println("---------------------------------------------------");
@@ -29,7 +29,7 @@ public class MenuResposta implements Menu {
 	}
 
 	@Override
-	public Menu executarAcao(Object opcaoSelecionada) {
+	public Menu executarAcao(String opcaoSelecionada) {
 		return menu;
 	}
 

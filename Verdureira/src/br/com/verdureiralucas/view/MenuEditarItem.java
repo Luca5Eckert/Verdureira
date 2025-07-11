@@ -6,7 +6,7 @@ import br.com.verdureiralucas.controller.ItemController;
 import br.com.verdureiralucas.dto.ItemDto;
 import br.com.verdureiralucas.dto.ItemEditDto;
 
-public class MenuEditarItem implements Menu {
+public class MenuEditarItem implements Menu<String> {
 
 	private final Scanner input;
 	private final ItemController itemController;
@@ -27,7 +27,7 @@ public class MenuEditarItem implements Menu {
 	}
 
 	@Override
-	public Object mostrarMenu() {
+	public String mostrarMenu() {
 		System.out.println();
 		System.out.println("---------------------------------------------------");
 		System.out.println("                  EDITAR ITEM                      ");
@@ -42,8 +42,7 @@ public class MenuEditarItem implements Menu {
 	}
 
 	@Override
-	public Menu executarAcao(Object opcaoSelecionada) {
-		String opcaoEmString = (String) opcaoSelecionada;
+	public Menu executarAcao(String opcaoEmString) {
 		return switch(opcaoEmString){
 		case "1" -> editarNome();
 		case "2" -> editarDescricao();

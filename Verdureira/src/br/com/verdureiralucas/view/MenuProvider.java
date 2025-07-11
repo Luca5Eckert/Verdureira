@@ -4,7 +4,7 @@ public class MenuProvider {
 
 	private Menu menu;
 
-	public MenuProvider(Menu menu) {
+	public MenuProvider(Menu<?> menu) {
 		this.menu = menu;
 	}
 

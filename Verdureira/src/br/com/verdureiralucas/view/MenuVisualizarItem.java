@@ -9,7 +9,7 @@ import br.com.verdureiralucas.dto.ItemMudancaQuantidadeRequest;
 import br.com.verdureiralucas.infraestrutura.PatternsUtils;
 import br.com.verdureiralucas.model.TipoItem;
 
-public class MenuVisualizarItem implements Menu {
+public class MenuVisualizarItem implements Menu<String> {
 
 	private final Scanner input;
 	private final ItemController itemController;
@@ -22,7 +22,7 @@ public class MenuVisualizarItem implements Menu {
 	}
 
 	@Override
-	public Object mostrarMenu() {
+	public String mostrarMenu() {
 		TipoItem tipoItem = itemDto.tipoItem();
 		System.out.println("---------------------------------------------------");
 		System.out.println("                   " + tipoItem + "                        ");
@@ -40,9 +40,7 @@ public class MenuVisualizarItem implements Menu {
 	}
 
 	@Override
-	public Menu executarAcao(Object opcaoSelecionada) {
-		String opcao = (String) opcaoSelecionada;
-
+	public Menu executarAcao(String opcao) {
 		return switch (opcao) {
 		case "1" -> aumentarItemEstoque();
 		case "2" -> diminuirItemEstoque();

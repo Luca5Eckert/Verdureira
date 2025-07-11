@@ -1,10 +1,10 @@
 package br.com.verdureiralucas.view;
 
-public interface Menu {
+public interface Menu<T> {
 
-	Object mostrarMenu();
+	T mostrarMenu();
 
-	Menu executarAcao(Object opcaoSelecionada);
+	Menu executarAcao(T opcaoSelecionada);
 
 	void limparScanner();
 

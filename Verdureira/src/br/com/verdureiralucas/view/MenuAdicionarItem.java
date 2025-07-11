@@ -6,7 +6,7 @@ import br.com.verdureiralucas.controller.ItemController;
 import br.com.verdureiralucas.dto.ItemDto;
 import br.com.verdureiralucas.model.TipoItem;
 
-public class MenuAdicionarItem implements Menu {
+public class MenuAdicionarItem implements Menu<ItemDto> {
 
 	private final ItemController itemController;
 	private final Scanner input;
@@ -17,7 +17,7 @@ public class MenuAdicionarItem implements Menu {
 	}
 
 	@Override
-	public Object mostrarMenu() {
+	public ItemDto mostrarMenu() {
 		System.out.println("---------------------------------------------------");
 		System.out.println("                ADICIONAR ITEM                     ");
 		System.out.println("---------------------------------------------------");
@@ -43,10 +43,8 @@ public class MenuAdicionarItem implements Menu {
 	}
 
 	@Override
-	public Menu executarAcao(Object opcaoSelecionada) {
+	public Menu<?> executarAcao(ItemDto itemDto) {
 		limparScanner();
-
-		ItemDto itemDto = (ItemDto) opcaoSelecionada;
 
 		itemController.adicionarItem(itemDto);
 

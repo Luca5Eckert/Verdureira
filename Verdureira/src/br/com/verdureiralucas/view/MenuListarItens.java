@@ -12,7 +12,7 @@ import br.com.verdureiralucas.exception.TipoItemNaoExisteEstoqueException;
 import br.com.verdureiralucas.infraestrutura.PatternsUtils;
 import br.com.verdureiralucas.model.TipoItem;
 
-public class MenuListarItens implements Menu {
+public class MenuListarItens implements Menu<String> {
 
 	private final Scanner input;
 	private final ItemController itemController;
@@ -24,12 +24,12 @@ public class MenuListarItens implements Menu {
 	}
 
 	@Override
-	public Object mostrarMenu() {
+	public String mostrarMenu() {
 		TipoItem tipoItem = mostrarMenuEscolhaItens();
 		return mostrarMenuListar(tipoItem);
 	}
 
-	private Object mostrarMenuListar(TipoItem tipoItem) {
+	private String mostrarMenuListar(TipoItem tipoItem) {
 		var listaItens = pegarItensTipo(tipoItem);
 		tipoSelecionado = tipoItem;
 
@@ -93,8 +93,7 @@ public class MenuListarItens implements Menu {
 	}
 
 	@Override
-	public Menu executarAcao(Object opcaoSelecionada) {
-		String textoEnviado = (String) opcaoSelecionada;
+	public Menu executarAcao(String textoEnviado) {
 
 		return switch (textoEnviado) {
 			case "S" -> new MenuItemGeral(input);

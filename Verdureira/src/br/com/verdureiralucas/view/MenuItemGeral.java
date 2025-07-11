@@ -6,7 +6,7 @@ import br.com.verdureiralucas.controller.ItemController;
 import br.com.verdureiralucas.model.EstoqueItem;
 import br.com.verdureiralucas.service.ItemService;
 
-public class MenuItemGeral implements Menu {
+public class MenuItemGeral implements Menu<String> {
 
 	private final Scanner input;
 
@@ -15,7 +15,7 @@ public class MenuItemGeral implements Menu {
 	}
 
 	@Override
-	public Object mostrarMenu() {
+	public String mostrarMenu() {
 		System.out.println("---------------------------------------------------");
 		System.out.println("                     MENU ITEM                     ");
 		System.out.println("---------------------------------------------------");
@@ -26,9 +26,7 @@ public class MenuItemGeral implements Menu {
 	}
 
 	@Override
-	public Menu executarAcao(Object opcaoSelecionada) {
-		String opcaoString = (String) opcaoSelecionada;
-
+	public Menu executarAcao(String opcaoString) {
 		return switch (opcaoString) {
 		case "1" -> new MenuAdicionarItem(new ItemController(new ItemService(new EstoqueItem())), input);
 		case "2" -> new MenuListarItens(input, new ItemController(new ItemService(new EstoqueItem())));
