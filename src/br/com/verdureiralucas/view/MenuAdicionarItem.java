@@ -37,15 +37,13 @@ public class MenuAdicionarItem implements Menu<ItemDto> {
 
 		System.out.println(" Quantidade do Item: ");
 		int qtdItem = input.nextInt();
-		
+
 		System.out.println("---------------------------------------------------");
 		return new ItemDto(nome, preco, descricao, qtdItem, tipoMenu);
 	}
 
 	@Override
 	public Menu<?> executarAcao(ItemDto itemDto) {
-		limparScanner();
-
 		itemController.adicionarItem(itemDto);
 
 		return new MenuResposta(new MenuItemGeral(input), "Adicionado Com sucesso", input);

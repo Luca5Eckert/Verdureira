@@ -1,7 +1,8 @@
 package br.com.verdureiralucas.model;
 
 public enum TipoItem {
-	FRUTA("fruta");
+	FRUTA("fruta"),
+	VERDURA("verdura");
 
 	private final String emString;
 
