@@ -8,11 +8,11 @@ import br.com.verdureiralucas.view.MenuProvider;
 
 public class VerdureiraAplication {
 
-	public static void main(String[] args) {
-		try (Scanner input = new Scanner(System.in)) {
-			MenuManager menuManager = new MenuManager(new MenuProvider(new MenuItemGeral(input)));
-			menuManager.chamarMenu();
-		}
+    public static void main(String[] args) {
+        try (Scanner input = new Scanner(System.in)) {
+            MenuManager menuManager = new MenuManager(new MenuProvider(new MenuItemGeral(input)));
+            menuManager.chamarMenu();
+        }
 
-	}
+    }
 }

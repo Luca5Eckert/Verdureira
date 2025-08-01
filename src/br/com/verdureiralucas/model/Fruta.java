@@ -1,6 +1,6 @@
 package br.com.verdureiralucas.model;
 
-public class Fruta extends Item{
+public class Fruta extends Item {
 
     public Fruta(String nome, double preco, String descricao, int quantidade) {
         super(nome, preco, descricao, quantidade);
@@ -11,7 +11,7 @@ public class Fruta extends Item{
     }
 
     @Override
-    public TipoItem pegarTipo(){
+    public TipoItem pegarTipo() {
         return TipoItem.FRUTA;
     }
 

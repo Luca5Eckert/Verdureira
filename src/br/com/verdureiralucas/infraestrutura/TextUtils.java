@@ -3,14 +3,14 @@ package br.com.verdureiralucas.infraestrutura;
 import java.util.regex.Pattern;
 
 public class TextUtils {
-	private static final String CARACTERES_INVALIDOS = "^[a-zA-Z0-9_.-]*$";
+    private static final String CARACTERES_INVALIDOS = "^[a-zA-Z0-9_.-]*$";
 
-	private TextUtils() {
-	}
+    private TextUtils() {
+    }
 
-	public static boolean verificaSeHaCaracteresEspeciais(String texto) {
-		return Pattern.matches(CARACTERES_INVALIDOS, texto);
-	}
+    public static boolean verificaSeHaCaracteresEspeciais(String texto) {
+        return Pattern.matches(CARACTERES_INVALIDOS, texto);
+    }
 
     public static String enquadrarTextoEmTamanho(String texto, int tamanhoPorLinha) {
         if (tamanhoPorLinha <= 0) {
@@ -22,13 +22,13 @@ public class TextUtils {
         StringBuilder textoFormatado = new StringBuilder();
 
         while (tamanhoComeco < tamanhoDoTexto) {
-        	
+
             int tamanhoFinal = Math.min(tamanhoComeco + tamanhoPorLinha, tamanhoDoTexto);
 
             textoFormatado.append(texto, tamanhoComeco, tamanhoFinal);
 
             if (tamanhoFinal < tamanhoDoTexto) {
-                textoFormatado.append("\n"); 
+                textoFormatado.append("\n");
             }
 
             tamanhoComeco += tamanhoPorLinha;
@@ -37,13 +37,13 @@ public class TextUtils {
         return textoFormatado.toString();
     }
 
-	
-	public static boolean eNumero(String texto) {
-		try {
-			Integer.parseInt(texto);
-			return true;
-		} catch ( NumberFormatException nfe ) {
-			return false;
-		}
-	}
+
+    public static boolean eNumero(String texto) {
+        try {
+            Integer.parseInt(texto);
+            return true;
+        } catch (NumberFormatException nfe) {
+            return false;
+        }
+    }
 }

@@ -5,39 +5,39 @@ import java.util.Scanner;
 
 public class MenuResposta implements Menu<String> {
 
-	private Scanner input;
+    private final Scanner input;
 
-	private final Menu menu;
-	private final String mensagemErro;
+    private final Menu<?> menu;
+    private final String mensagemErro;
 
-	public MenuResposta(Menu menu, String mensagemErro, Scanner input) {
-		this.menu = menu;
-		this.mensagemErro = mensagemErro;
-		this.input = input;
-	}
+    public MenuResposta(Menu<?> menu, String mensagemErro, Scanner input) {
+        this.menu = menu;
+        this.mensagemErro = mensagemErro;
+        this.input = input;
+    }
 
-	@Override
-	public String mostrarMenu() {
-		System.out.println("---------------------------------------------------");
-		System.out.println("                      RESULTADO                    ");
-		System.out.println("---------------------------------------------------");
+    @Override
+    public String mostrarMenu() {
+        System.out.println("---------------------------------------------------");
+        System.out.println("                      RESULTADO                    ");
+        System.out.println("---------------------------------------------------");
 
-		System.out.println(" " + mensagemErro);
+        System.out.println(" " + mensagemErro);
 
-		System.out.println(" 1 - Continuar ");
-		return input.nextLine();
-	}
+        System.out.println(" 1 - Continuar ");
+        return input.nextLine();
+    }
 
-	@Override
-	public Menu executarAcao(String opcaoSelecionada) {
-		return menu;
-	}
+    @Override
+    public Menu<?> executarAcao(String opcaoSelecionada) {
+        return menu;
+    }
 
-	@Override
-	public void limparScanner() {
-		if (input.hasNext()) {
-			input.nextLine();
-		}
-	}
+    @Override
+    public void limparScanner() {
+        if (input.hasNext()) {
+            input.nextLine();
+        }
+    }
 
 }

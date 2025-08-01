@@ -1,23 +1,23 @@
 package br.com.verdureiralucas.model;
 
 public enum TipoItem {
-	FRUTA("fruta"),
-	VERDURA("verdura");
+    FRUTA("fruta"),
+    VERDURA("verdura");
 
-	private final String emString;
+    private final String emString;
 
-	public String getEmString() {
-		return emString;
-	}
+    public String getEmString() {
+        return emString;
+    }
 
-	TipoItem(String emString) {
-		this.emString = emString;
-	}
+    TipoItem(String emString) {
+        this.emString = emString;
+    }
 
-	public static void pegarValoresTipos() {
-		for (int item = 0; values().length > item; item++) {
-			System.out.println(" " + item + " - " + values()[item]);
-		}
-	}
+    public static void pegarValoresTipos() {
+        for (int item = 0; values().length > item; item++) {
+            System.out.println(" " + item + " - " + values()[item]);
+        }
+    }
 
 }
