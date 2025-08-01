@@ -2,7 +2,7 @@ package br.com.verdureiralucas.model;
 
 import br.com.verdureiralucas.dto.ItemDto;
 import br.com.verdureiralucas.exception.InsercaoInvalidaException;
-import br.com.verdureiralucas.infraestrutura.PatternsUtils;
+import br.com.verdureiralucas.infraestrutura.TextUtils;
 
 public abstract class Item {
 
@@ -39,7 +39,7 @@ public abstract class Item {
 
 
     public void setNome(String nome) {
-		if (nome.isBlank() || nome.isEmpty() || PatternsUtils.verificaSeHaCaracteresEspeciais(nome)) {
+		if (nome.isBlank() || TextUtils.verificaSeHaCaracteresEspeciais(nome)) {
 			throw new InsercaoInvalidaException("Inserção invalida", nome);
 		}
 		this.nome = nome;

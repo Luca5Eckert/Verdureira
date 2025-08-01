@@ -9,7 +9,7 @@ import br.com.verdureiralucas.dto.ItemDto;
 import br.com.verdureiralucas.exception.InsercaoInvalidaException;
 import br.com.verdureiralucas.exception.ItemNaoExisteEstoqueException;
 import br.com.verdureiralucas.exception.TipoItemNaoExisteEstoqueException;
-import br.com.verdureiralucas.infraestrutura.PatternsUtils;
+import br.com.verdureiralucas.infraestrutura.TextUtils;
 import br.com.verdureiralucas.model.TipoItem;
 
 public class MenuListarItens implements Menu<String> {
@@ -102,7 +102,7 @@ public class MenuListarItens implements Menu<String> {
 	}
 
 	private Menu verificarinput(String inserido) {
-		boolean eNumero = PatternsUtils.eNumero(inserido);
+		boolean eNumero = TextUtils.eNumero(inserido);
 
 		if (eNumero) {
 			return criarMenuDoItemSelecionado(Integer.parseInt(inserido));

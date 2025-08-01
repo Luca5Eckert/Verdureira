@@ -2,10 +2,10 @@ package br.com.verdureiralucas.infraestrutura;
 
 import java.util.regex.Pattern;
 
-public class PatternsUtils {
+public class TextUtils {
 	private static final String CARACTERES_INVALIDOS = "^[a-zA-Z0-9_.-]*$";
 
-	private PatternsUtils() {
+	private TextUtils() {
 	}
 
 	public static boolean verificaSeHaCaracteresEspeciais(String texto) {

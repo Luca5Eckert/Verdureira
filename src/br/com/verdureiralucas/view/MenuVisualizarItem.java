@@ -1,12 +1,11 @@
 package br.com.verdureiralucas.view;
 
-import java.sql.SQLOutput;
 import java.util.Scanner;
 
 import br.com.verdureiralucas.controller.ItemController;
 import br.com.verdureiralucas.dto.ItemDto;
 import br.com.verdureiralucas.dto.ItemMudancaQuantidadeRequest;
-import br.com.verdureiralucas.infraestrutura.PatternsUtils;
+import br.com.verdureiralucas.infraestrutura.TextUtils;
 import br.com.verdureiralucas.model.TipoItem;
 
 public class MenuVisualizarItem implements Menu<String> {
@@ -28,7 +27,7 @@ public class MenuVisualizarItem implements Menu<String> {
 		System.out.println("                   " + tipoItem + "                        ");
 		System.out.println("---------------------------------------------------");
 		System.out.println(" Nome: " + itemDto.nome());
-		System.out.println(" Descrição: " + PatternsUtils.enquadrarTextoEmTamanho(itemDto.descricao(), 40));
+		System.out.println(" Descrição: " + TextUtils.enquadrarTextoEmTamanho(itemDto.descricao(), 40));
 		System.out.println("\n Preço: " + itemDto.preco());
 		System.out.println(" Quantidade: " + itemDto.quantidade());
 
@@ -40,7 +39,7 @@ public class MenuVisualizarItem implements Menu<String> {
 	}
 
 	@Override
-	public Menu executarAcao(String opcao) {
+	public Menu<?> executarAcao(String opcao) {
 		return switch (opcao) {
 		case "1" -> aumentarItemEstoque();
 		case "2" -> diminuirItemEstoque();
