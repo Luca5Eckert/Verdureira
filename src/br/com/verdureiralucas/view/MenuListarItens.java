@@ -75,9 +75,15 @@ public class MenuListarItens implements Menu<String> {
 		System.out.println("---------------------------------------------------");
 		System.out.println(" Qual tipo você quer listar: ");
 		TipoItem.pegarValoresTipos();
-		int escolha = -1;
 		try {
-			escolha = input.nextInt();
+			int escolha = input.nextInt();
+
+			if (escolha >= TipoItem.values().length || escolha < 0) {
+				throw new IllegalArgumentException("Opção de tipo de item inválida. Por favor, escolha um número dentro das opções disponíveis.");
+			}
+
+			return TipoItem.values()[escolha];
+
 		} catch (java.util.InputMismatchException e) {
 			System.out.println("Entrada inválida. Por favor, digite um número.");
 			throw new InsercaoInvalidaException("Entrada não numérica para escolha de tipo", "Não é um número");
@@ -85,23 +91,24 @@ public class MenuListarItens implements Menu<String> {
 			input.nextLine();
 		}
 
-		if (escolha >= TipoItem.values().length || escolha < 0) {
-			throw new IllegalArgumentException("Opção de tipo de item inválida. Por favor, escolha um número dentro das opções disponíveis.");
-		}
 
-		return TipoItem.values()[escolha];
+
+
 	}
 
 	@Override
-	public Menu executarAcao(String textoEnviado) {
+	public Menu<?> executarAcao(String textoEnviado) {
 
-		return switch (textoEnviado) {
-			case "S" -> new MenuItemGeral(input);
-			default -> verificarinput(textoEnviado);
-		};
+		if ( textoEnviado.equals("S")){
+			return new MenuItemGeral(input);
+		}
+		return verificarinput(textoEnviado);
+
+
+
 	}
 
-	private Menu verificarinput(String inserido) {
+	private Menu<?> verificarinput(String inserido) {
 		boolean eNumero = TextUtils.eNumero(inserido);
 
 		if (eNumero) {
@@ -111,7 +118,7 @@ public class MenuListarItens implements Menu<String> {
 		throw new InsercaoInvalidaException("Entrada inválida. Digite 'S' para sair ou um número para selecionar um item.", inserido);
 	}
 
-	private Menu criarMenuDoItemSelecionado(int indexItemSelecionado) {
+	private Menu<?> criarMenuDoItemSelecionado(int indexItemSelecionado) {
 		Optional<ItemDto> itemdto = pegarItemSelecionado(indexItemSelecionado);
 
 		if (itemdto.isEmpty()) {

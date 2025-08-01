@@ -1,12 +1,12 @@
 package br.com.verdureiralucas.view;
 
-import java.util.Scanner;
-
 import br.com.verdureiralucas.controller.ItemController;
 import br.com.verdureiralucas.dto.ItemDto;
 import br.com.verdureiralucas.dto.ItemMudancaQuantidadeRequest;
 import br.com.verdureiralucas.infraestrutura.TextUtils;
 import br.com.verdureiralucas.model.TipoItem;
+
+import java.util.Scanner;
 
 public class MenuVisualizarItem implements Menu<String> {
 
@@ -50,7 +50,7 @@ public class MenuVisualizarItem implements Menu<String> {
 		};
 	}
 
-	private Menu diminuirItemEstoque() {
+	private Menu<?> diminuirItemEstoque() {
 		System.out.println("---------------------------------------------------");
 		System.out.println("               DIMINUIR ITEM                       ");
 		System.out.println("---------------------------------------------------");
@@ -59,13 +59,13 @@ public class MenuVisualizarItem implements Menu<String> {
 		int subtracao = input.nextInt();
 		input.nextLine();
 
-		ItemMudancaQuantidadeRequest itemMudancaQuantidadeRequest = new ItemMudancaQuantidadeRequest(itemDto, 0-subtracao);
+		ItemMudancaQuantidadeRequest itemMudancaQuantidadeRequest = new ItemMudancaQuantidadeRequest(itemDto, -subtracao);
 		alterarQuantidadeItem(itemMudancaQuantidadeRequest);
 
 		return this;
 	}
 
-	private Menu aumentarItemEstoque() {
+	private Menu<?> aumentarItemEstoque() {
 		System.out.println("---------------------------------------------------");
 		System.out.println("              AUMENTAR QUANTIDADE                  ");
 		System.out.println("---------------------------------------------------");
@@ -90,7 +90,7 @@ public class MenuVisualizarItem implements Menu<String> {
 	}
 
 
-	private Menu apagarItemEstoque() {
+	private Menu<?> apagarItemEstoque() {
 		System.out.println("---------------------------------------------------");
 		System.out.println("                   TEM CERTEZA?                    ");
 		System.out.println("---------------------------------------------------");
@@ -98,21 +98,16 @@ public class MenuVisualizarItem implements Menu<String> {
 		System.out.println(" 2 - Cancelar");
 		String inserido = input.nextLine().trim().toUpperCase();
 
-		switch (inserido) {
-		case "1" -> {
-			itemController.removerItem(itemDto);
-			System.err.println("Apagado com sucesso");
+        if (inserido.equals("1")) {
+            itemController.removerItem(itemDto);
+            System.err.println("Apagado com sucesso");
 
-			return new MenuItemGeral(input);
+            return new MenuItemGeral(input);
+        }
+        System.err.println("Ação Cancelada");
+        return this;
 
-		}
-		default -> {
-			System.err.println("Ação Cancelada");
-			return this;
-		}
-		}
-
-	}
+    }
 
 	@Override
 	public void limparScanner() {

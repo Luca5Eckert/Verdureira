@@ -1,6 +1,5 @@
 package br.com.verdureiralucas.model;
 
-import br.com.verdureiralucas.dto.ItemDto;
 import br.com.verdureiralucas.exception.InsercaoInvalidaException;
 import br.com.verdureiralucas.infraestrutura.TextUtils;
 
@@ -18,15 +17,8 @@ public abstract class Item {
 		this.quantidade = quantidade;
 	}
 
-	public Item(ItemDto itemDto) {
-		this.nome = itemDto.nome();
-		this.preco = itemDto.preco();
-		this.descricao = itemDto.descricao();
-		this.quantidade = itemDto.quantidade();
-	}
-
 	public void aumentarQuantidade(int aumentarEm) {
-		this.quantidade += aumentarEm;
+		this.setQuantidade(this.quantidade + aumentarEm);
 	}
 
 	public void setQuantidade(int quantidade) {
@@ -68,22 +60,16 @@ public abstract class Item {
 
 	@Override
 	public boolean equals(Object object) {
-		if (!(object instanceof Item)) {
+		if (!(object instanceof Item item)) {
 			return false;
 		}
 
-		Item item = (Item) object;
-
-		if (item == this) {
+        if (item == this) {
 			return true;
 		}
 
-		if (this.nome.equals(item.getNome()) && this.preco == item.getPreco() && this.descricao.equals(item.getDescricao()) && this.quantidade == item.getQuantidade()) {
-			return true;
-		}
-
-		return false;
-	}
+        return this.nome.equals(item.getNome()) && this.preco == item.getPreco() && this.descricao.equals(item.getDescricao()) && this.quantidade == item.getQuantidade();
+    }
 
 	public abstract TipoItem pegarTipo();
 }

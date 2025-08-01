@@ -25,7 +25,7 @@ public class TextUtils {
         	
             int tamanhoFinal = Math.min(tamanhoComeco + tamanhoPorLinha, tamanhoDoTexto);
 
-            textoFormatado.append(texto.substring(tamanhoComeco, tamanhoFinal));
+            textoFormatado.append(texto, tamanhoComeco, tamanhoFinal);
 
             if (tamanhoFinal < tamanhoDoTexto) {
                 textoFormatado.append("\n"); 
